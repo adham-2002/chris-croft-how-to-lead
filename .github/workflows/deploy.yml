@@ -9,7 +9,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
 jobs:
   deploy:
     environment:
@@ -28,6 +27,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: . # غيرها لو عندك build/dist folder
+          path: .
 
-      - name: Deploy to GitHub P
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
