@@ -46,11 +46,13 @@ Both HTML files change only in the script tag (`<script type="module" src="js/ma
 - Every `localStorage` access is wrapped in try/catch; on failure the module falls back to an in-memory object and the site works without persistence.
 - On first run, legacy keys are read, merged into the new object, written once, then left in place (not deleted) so a rollback loses nothing.
 - `exportJSON()` / `importJSON(file)` use a Blob download and a file input; import validates `v === 1` and ignores unknown keys.
+- The pre-paint inline script in each page's <head> reads `htl:v1` first and falls back to the legacy `theme` key, so there is no flash of the wrong theme.
 
 ### i18n.js
 
 - `t(key, vars?)` returns the string for the current language; missing keys fall back to English and log a console warning in development.
 - Existing inline strings (reading time, resume toast, etc.) move into the table with identical text.
+- Fixes found during the move: the table region's aria-label is now localized (it was English on the Arabic page), and chapter titles used by the TOC and prev/next cards exclude the "#" copy-link button text.
 
 ## Delegation briefing builder
 

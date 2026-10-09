@@ -10,7 +10,11 @@
     <title>What Is a Leader? — A Practical, Easy-to-Skim Guide</title>
     <script>
       try {
-        var t = localStorage.getItem("theme");
+        var s = null;
+        try {
+          s = JSON.parse(localStorage.getItem("htl:v1"));
+        } catch (e) {}
+        var t = s && s.theme ? s.theme : localStorage.getItem("theme");
         if (t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches)
           document.documentElement.classList.add("dark-mode");
       } catch (e) {}
@@ -5270,6 +5274,6 @@
     <button id="back-to-top" class="icon-btn back-to-top" aria-label="Back to top">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
     </button>
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
