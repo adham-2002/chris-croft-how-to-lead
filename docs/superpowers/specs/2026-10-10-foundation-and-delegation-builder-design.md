@@ -58,7 +58,7 @@ Both HTML files change only in the script tag (`<script type="module" src="js/ma
 
 **Placement:** a card at the end of the section `how-to-delegate-the-8-step-process` on both pages, inserted by `delegation-builder.js` after that section's last element, so no manual duplication of markup per language.
 
-**Fields:** task, person, why them (free text), deadline, budget/limits, reporting rhythm (select: daily / weekly / at milestones / only if a problem), support offered (select: check in anytime / scheduled help / on request).
+**Fields:** task, why it matters (free text), person (name), why them (free text), deadline, limits (time / money / scope, free text), reporting rhythm (select: daily / weekly / at milestones / only if a problem), support offered (select: available any time / scheduled check-ins / on request).
 
 **Output:** a briefing assembled from templates in the order of the course's steps: what is needed; why it matters; why you were chosen; limits (time, money); how you'll report; support available; check of understanding ("What will your first step be?"); closing confidence line. Empty fields drop their line instead of leaving placeholders.
 
@@ -95,13 +95,14 @@ Known gap: no real-device (phone) testing and no Lighthouse run so far; the repo
 
 ## Delivery
 
-1. Commit 1: modular refactor, behavior unchanged.
-2. Commit 2: delegation builder (+ CSS in `styles.css`).
-3. Commits are local; push/deploy only on the owner's request.
+1. Commits are local and follow the plan: storage/i18n modules, the module refactor, the briefing generator, then the builder UI.
+2. Push/deploy only on the owner's request.
 
 ## Out of scope
 
 Team grid, scenario trainer, flashcards, search, PWA, read-aloud, highlights, quiz, radar audit, illustrated story, any build tooling or test framework.
+
+Export/import UI for stored data (the store supports it; no screen uses it yet).
 
 ## Open assumptions
 

@@ -7,6 +7,7 @@ import { initFont } from "./font.js";
 import { initContent } from "./content.js";
 import { initLightbox } from "./lightbox.js";
 import { initReader } from "./reader.js";
+import { initDelegationBuilder } from "./delegation-builder.js";
 
 function safeStorage() {
   try {
@@ -26,6 +27,7 @@ function boot() {
   initFont(ctx, store);
   initContent(ctx, t);
   initLightbox(ctx);
+  initDelegationBuilder(t);
   initReader(ctx, store, t);
 }
 
