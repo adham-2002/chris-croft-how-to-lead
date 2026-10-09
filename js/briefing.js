@@ -12,13 +12,16 @@ const clean = (s) =>
     .replace(/[.۔،]+$/, "")
     .trim();
 
+// Add a final full stop only when the text does not already end in terminal punctuation.
+const end = (s) => (/[.!?؟…۔]$/.test(s) ? s : `${s}.`);
+
 const EN = {
   hi: (p) => (p ? `Hi ${p},` : "Hi,"),
-  task: (v) => `I'd like you to take on this task: ${v}.`,
-  why: (v) => `It matters because ${v}.`,
-  whyYou: (v) => `I'm asking you because ${v}.`,
-  deadline: (v) => `I need it by ${v}.`,
-  limits: (v) => `Limits to keep in mind: ${v}.`,
+  task: (v) => `I'd like you to take on this task: ${end(v)}`,
+  why: (v) => `It matters because ${end(v)}`,
+  whyYou: (v) => `I'm asking you because ${end(v)}`,
+  deadline: (v) => `I need it by ${end(v)}`,
+  limits: (v) => `Limits to keep in mind: ${end(v)}`,
   rhythm: {
     daily: "Please give me a short update every day.",
     weekly: "Please give me an update once a week.",
@@ -37,11 +40,11 @@ const EN = {
 // Arabic is written gender-neutral: no verbs conjugated for the person addressed.
 const AR = {
   hi: (p) => (p ? `مرحبًا ${p}،` : "مرحبًا،"),
-  task: (v) => `أريد منك تولّي هذه المهمة: ${v}.`,
-  why: (v) => `أهمية المهمة: ${v}.`,
-  whyYou: (v) => `اخترتك لهذه المهمة لأن ${v}.`,
-  deadline: (v) => `الموعد المطلوب: ${v}.`,
-  limits: (v) => `الحدود التي نلتزم بها: ${v}.`,
+  task: (v) => `أريد منك تولّي هذه المهمة: ${end(v)}`,
+  why: (v) => `أهمية المهمة: ${end(v)}`,
+  whyYou: (v) => `اخترتك لهذه المهمة لأن ${end(v)}`,
+  deadline: (v) => `الموعد المطلوب: ${end(v)}`,
+  limits: (v) => `الحدود التي نلتزم بها: ${end(v)}`,
   rhythm: {
     daily: "أحتاج منك تحديثًا مختصرًا كل يوم.",
     weekly: "أحتاج منك تحديثًا مرة في الأسبوع.",
@@ -49,7 +52,7 @@ const AR = {
     problem: "لا حاجة لتقارير دورية؛ يكفي إبلاغي إن ظهرت مشكلة.",
   },
   support: {
-    anytime: "بابي مفتوح في أي وقت، وطلب المساعدة ليس عيبًا.",
+    anytime: "أبواب التواصل معي مفتوحة في أي وقت، وطلب المساعدة ليس عيبًا.",
     scheduled: "سأخصّص أوقاتًا محددة لمساعدتك، ويمكنك التواصل معي في أي وقت أيضًا.",
     request: "الدعم متاح عند الطلب دون أي حرج.",
   },

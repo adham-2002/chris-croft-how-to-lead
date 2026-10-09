@@ -16,10 +16,9 @@ export function initReader(ctx, store, t) {
   const persist = () => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
-      const cur = store.get();
       store.set({
-        read: { ...cur.read, [pageKey]: [...readSet] },
-        pos: { ...cur.pos, [pageKey]: Math.round(scrollY) },
+        read: { [pageKey]: [...readSet] },
+        pos: { [pageKey]: Math.round(scrollY) },
       });
     }, 400);
   };

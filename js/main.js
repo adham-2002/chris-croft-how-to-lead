@@ -22,13 +22,21 @@ function boot() {
   const t = createT(document.documentElement.lang);
   const ctx = createContext();
   // Order matters: nav reads heading text before content.js appends the "#" buttons.
-  initNav(ctx);
-  initTheme(ctx, store);
-  initFont(ctx, store);
-  initContent(ctx, t);
-  initLightbox(ctx);
-  initDelegationBuilder(t);
-  initReader(ctx, store, t);
+  // Each init is isolated so one failure cannot stop the later ones.
+  const run = (name, fn) => {
+    try {
+      fn();
+    } catch (e) {
+      console.error(`init ${name} failed`, e);
+    }
+  };
+  run("nav", () => initNav(ctx));
+  run("theme", () => initTheme(ctx, store));
+  run("font", () => initFont(ctx, store));
+  run("content", () => initContent(ctx, t));
+  run("lightbox", () => initLightbox(ctx));
+  run("delegation builder", () => initDelegationBuilder(t));
+  run("reader", () => initReader(ctx, store, t));
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

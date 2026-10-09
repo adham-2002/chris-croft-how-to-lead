@@ -58,6 +58,7 @@ Everything in the course is a different angle on that picture.
 - 🔠 A+ / A− font sizing that remembers your choice
 - ⏱️ Reading-time estimate and chapter count at the top
 - 📊 Reading-progress bar and a scroll-spy table of contents
+- 📝 A **delegation briefing builder** that turns your answers into a ready-to-send message following the 8 steps
 - ✅ Chapters you've read get a check mark; a gentle **"resume reading"** toast picks up where you left off
 
 **Navigation**
@@ -97,12 +98,24 @@ chris-croft-how-to-lead/
 ├── index.html        # English edition
 ├── ar.html           # Arabic (RTL) edition
 ├── styles.css        # design tokens, light/dark, RTL overrides, print
-├── script.js         # TOC, scroll-spy, progress, lightbox, resume, theme…
+├── js/               # ES modules (need HTTP, not file://)
+│   ├── store.js              # namespaced localStorage state
+│   ├── i18n.js               # EN/AR string table
+│   ├── context.js            # shared page state
+│   ├── nav.js                # TOC, scroll-spy, progress, drawer
+│   ├── theme.js              # light / dark theme
+│   ├── font.js               # A+ / A− font sizing
+│   ├── content.js            # reading time, heading links, prev/next
+│   ├── lightbox.js           # image lightbox
+│   ├── reader.js             # read marks, resume reading
+│   ├── briefing.js           # delegation briefing text generator
+│   ├── delegation-builder.js # delegation briefing builder card
+│   └── main.js               # entry point
 ├── images/           # course diagrams + certificate
 └── .github/workflows/deploy.yml   # GitHub Pages deploy on push to main
 ```
 
-**Design tokens** drive both themes (`:root` and `html.dark-mode`), so changing a colour in one place changes it everywhere. Language strings are chosen from `document.documentElement.lang`, which is why one script serves both editions.
+**Design tokens** drive both themes (`:root` and `html.dark-mode`), so changing a colour in one place changes it everywhere. Language strings are chosen from `document.documentElement.lang`, which is why one set of modules serves both editions. Because the scripts are ES modules, open the site over HTTP (see below), not by double-clicking the file.
 
 ---
 

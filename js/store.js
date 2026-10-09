@@ -70,8 +70,22 @@ export function createStore(storage) {
 
   return {
     get: () => state,
+    // Re-read storage first so a stale page (bfcache, second tab) never overwrites
+    // newer data. read/pos merge per language; other keys merge shallowly.
     set(patch) {
-      state = normalize({ ...state, ...patch });
+      let base = state;
+      try {
+        const s = storage && storage.getItem(KEY);
+        const p = s ? JSON.parse(s) : null;
+        if (p && p.v === 1) base = normalize(p);
+      } catch (e) {}
+      const pt = patch || {};
+      state = normalize({
+        ...base,
+        ...pt,
+        read: { ...base.read, ...(pt.read || {}) },
+        pos: { ...base.pos, ...(pt.pos || {}) },
+      });
       write();
     },
     exportJSON: () => JSON.stringify(state, null, 2),

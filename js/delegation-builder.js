@@ -20,7 +20,7 @@ addStrings("en", {
   bCopy: "Copy briefing",
   bClear: "Clear form",
   bCopied: "Copied to clipboard.",
-  bCopyFail: "Couldn't copy automatically. The text is selected — press Ctrl+C.",
+  bCopyFail: "Couldn't copy automatically. The text is selected — copy it manually.",
 });
 addStrings("ar", {
   bTitle: "منشئ رسالة التفويض",
@@ -40,7 +40,7 @@ addStrings("ar", {
   bCopy: "نسخ الرسالة",
   bClear: "مسح النموذج",
   bCopied: "تم النسخ.",
-  bCopyFail: "تعذّر النسخ تلقائيًا. النص محدد — اضغط Ctrl+C.",
+  bCopyFail: "تعذّر النسخ تلقائيًا. النص محدد ويمكن نسخه يدويًا.",
 });
 
 function el(tag, props = {}, children = []) {
@@ -84,7 +84,7 @@ export function initDelegationBuilder(t) {
       control,
     ]);
   };
-  const text = (name) => el("input", { type: "text", autocomplete: "off", dir: "auto" });
+  const text = () => el("input", { type: "text", autocomplete: "off", dir: "auto" });
   const area = () => el("textarea", { rows: 2, dir: "auto" });
   const select = (optsKey, values) => {
     const s = el("select");
@@ -111,12 +111,15 @@ export function initDelegationBuilder(t) {
     tabIndex: 0,
     dir: "auto",
   });
-  preview.setAttribute("aria-live", "polite");
-  preview.setAttribute("aria-atomic", "true");
+  preview.setAttribute("role", "region");
   preview.setAttribute("aria-labelledby", "bld-preview-label");
 
   const copyBtn = el("button", { type: "button", className: "primary", text: t("bCopy") });
   const clearBtn = el("button", { type: "button", text: t("bClear") });
+  const sr = el("div", { className: "builder-sr" });
+  sr.setAttribute("role", "status");
+  sr.setAttribute("aria-live", "polite");
+  sr.setAttribute("aria-atomic", "true");
   const msg = el("p", { className: "builder-msg" });
   msg.setAttribute("role", "status");
 
@@ -130,6 +133,7 @@ export function initDelegationBuilder(t) {
         preview,
         el("div", { className: "builder-actions" }, [copyBtn, clearBtn]),
         msg,
+        sr,
       ]),
     ]),
   ]);
@@ -137,8 +141,16 @@ export function initDelegationBuilder(t) {
   card.setAttribute("aria-labelledby", "bld-title");
 
   const readFields = () => Object.fromEntries(new FormData(form).entries());
+  let srTimer;
+  const announce = (out) => {
+    clearTimeout(srTimer);
+    srTimer = setTimeout(() => {
+      sr.textContent = out;
+    }, 700);
+  };
   const update = () => {
     const out = buildBriefing(lang, readFields());
+    announce(out);
     preview.textContent = out || t("bEmpty");
     preview.classList.toggle("is-empty", !out);
     copyBtn.disabled = !out;
@@ -149,6 +161,8 @@ export function initDelegationBuilder(t) {
   form.addEventListener("submit", (e) => e.preventDefault());
   clearBtn.addEventListener("click", () => {
     form.reset();
+    clearTimeout(srTimer);
+    sr.textContent = "";
     update();
     form.querySelector("textarea").focus();
   });
