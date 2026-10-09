@@ -861,3 +861,6 @@ h3:hover .heading-anchor,
 .main-content {
   overflow-x: clip;
 }
+
+/* chapter tag inside story headings */
+#full-story-colloquial h3 small{display:block;margin-top:.2rem;font-size:.7em;font-weight:400;color:var(--text-muted,inherit);opacity:.75}
