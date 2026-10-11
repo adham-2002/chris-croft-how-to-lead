@@ -42,7 +42,7 @@ Everything in the course is a different angle on that picture.
 
 | Part | Chapters you'll find |
 |---|---|
-| **1 · Leading vs. managing** | The Captain story · "Is everything management's fault?" · MBWA & back-to-the-floor · 5 ways to communicate · John Adair |
+| **1 · Leading vs. managing** | The Captain story · Managers vs. leaders (Seth Godin's lens: plans vs. strategies, good decisions vs. good outcomes) · "Is everything management's fault?" · MBWA & back-to-the-floor · 5 ways to communicate · John Adair |
 | **2 · Motivation** | Maslow's hierarchy · The Management Potato (recognition) · 4 personality types · Is money a motivator? · 20 motivational essentials · Maslow × personality |
 | **3 · Styles & delegation** | Tannenbaum–Schmidt continuum · Empowerment in practice · 6 reasons to delegate · Objections to delegating · Nick's crash · The cushion story · The 8-step delegation process · Don't take the monkey |
 | **4 · Situational leadership** | Competence vs. motivation · Dave's story · The Freedom Ladder · Grip · Planning vs. doing · The banana of boredom · Tell → Delegate |
